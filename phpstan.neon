@@ -1,0 +1,10 @@
+parameters:
+    paths:
+        - src/
+
+    excludePaths:
+            - ./**/*Test.php
+
+    level: 5
+
+    treatPhpDocTypesAsCertain: false
