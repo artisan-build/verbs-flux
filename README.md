@@ -1,5 +1,7 @@
 # Verbs Flux
 
+This package is being replaced by one in which Flux is optional.
+
 Turn your [Verbs](https://verbs.thunk.dev) events into [Flux](https://fluxui.dev/) forms.
 
 ## Usage
