@@ -15,7 +15,8 @@
 		}
 	],
 	"require": {
-		"php": ">8.2"
+		"php": ">8.2",
+        "thunk/verbs": "*"
 	},
 	"require-dev": {
 		"hirethunk/verbs": "^0.6.4",
