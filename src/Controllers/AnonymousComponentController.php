@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ArtisanBuild\VerbsFlux\Controllers;
 
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Support\Facades\View;
 
 class AnonymousComponentController
 {

@@ -15,8 +15,8 @@ class VerbsFluxServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../../views', 'verbs-flux');
-        Blade::anonymousComponentPath(__DIR__ . '/../../views/components');
+        $this->loadViewsFrom(__DIR__.'/../../views', 'verbs-flux');
+        Blade::anonymousComponentPath(__DIR__.'/../../views/components');
         $this->app->bindIf(RedirectsOnSuccess::class, RedirectOnSuccess::class);
     }
 

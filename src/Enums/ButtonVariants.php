@@ -34,5 +34,4 @@ enum ButtonVariants: string
 
         return implode(' ', array_filter($classes));
     }
-
 }

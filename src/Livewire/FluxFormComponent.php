@@ -56,19 +56,19 @@ class FluxFormComponent extends Component
         $this->config = array_merge($config, $default);
 
         $this->state_key = collect($reflection->getProperties())
-            ->filter(fn($property) => ! empty($property->getAttributes(StateId::class)))
+            ->filter(fn ($property) => ! empty($property->getAttributes(StateId::class)))
             ->first()->getName();
 
-        $this->rules['data.' . $this->state_key] = ['nullable'];
+        $this->rules['data.'.$this->state_key] = ['nullable'];
 
         collect($reflection->getProperties())
-            ->filter(fn($property) => ! empty($property->getAttributes(EventInput::class)))
+            ->filter(fn ($property) => ! empty($property->getAttributes(EventInput::class)))
             ->each(function ($property) use ($state): void {
                 $default = (array) $property->getAttributes(EventInput::class)[0]->newInstance();
                 $data = $property->getAttributes(EventInput::class)[0]->getArguments();
                 $data['name'] = $property->getName();
                 $this->data[$data['name']] = match (true) {
-                    InputTypes::DatetimeLocal === $data['type'] => $state?->{$data['name']}?->format('Y-m-d\TH:i'),
+                    $data['type'] === InputTypes::DatetimeLocal => $state?->{$data['name']}?->format('Y-m-d\TH:i'),
                     default => $state?->{$data['name']},
                 };
                 if ($state instanceof State) {
@@ -81,7 +81,7 @@ class FluxFormComponent extends Component
                     $data['params']['required'] = 'required';
                 }
 
-                $this->rules['data.' . $data['name']] = data_get($data, 'rules', []);
+                $this->rules['data.'.$data['name']] = data_get($data, 'rules', []);
 
                 $data = $this->transform($default, $data);
 
@@ -96,7 +96,7 @@ class FluxFormComponent extends Component
         $data = array_merge($default, $data);
 
         if (
-            InputTypes::DatetimeLocal === $data['type']
+            $data['type'] === InputTypes::DatetimeLocal
             && isset($data['params']['min'])
         ) {
             $min = $this->datetime_minmax_parser($data['params']['min']);
@@ -112,7 +112,7 @@ class FluxFormComponent extends Component
         }
 
         if (
-            InputTypes::DatetimeLocal === $data['type']
+            $data['type'] === InputTypes::DatetimeLocal
             && isset($data['params']['max'])
         ) {
             $max = $this->datetime_minmax_parser($data['params']['max']);
@@ -128,7 +128,7 @@ class FluxFormComponent extends Component
         }
 
         if (
-            InputTypes::Select === $data['type']
+            $data['type'] === InputTypes::Select
             && is_string($data['options'])
             && assert(class_exists($data['options']))
             && assert(is_subclass_of($data['options'], BackedEnum::class))
@@ -138,7 +138,7 @@ class FluxFormComponent extends Component
                 ->filter(function (BackedEnum $case) use ($enum, $data) {
                     $filter = $data['options_filter'];
 
-                    if (null === $filter) {
+                    if ($filter === null) {
                         return true;
                     }
 
@@ -151,7 +151,7 @@ class FluxFormComponent extends Component
                     // TODO: Should I use Reflection to ensure that this method returns a boolean?
                     return $case->{$filter}();
                 })
-                ->mapWithKeys(fn(BackedEnum $case) => [$case->value => $case->name]);
+                ->mapWithKeys(fn (BackedEnum $case) => [$case->value => $case->name]);
         }
 
         return $data;
@@ -163,7 +163,7 @@ class FluxFormComponent extends Component
 
         $reflection = new ReflectionClass($this->event);
         collect($reflection->getProperties())
-            ->filter(fn(ReflectionProperty $property): bool => ! empty($property->getAttributes(EventInput::class)))
+            ->filter(fn (ReflectionProperty $property): bool => ! empty($property->getAttributes(EventInput::class)))
             ->each(function (ReflectionProperty $property): void {
                 $type = $property->getType();
                 assert($type instanceof ReflectionNamedType);
@@ -173,10 +173,10 @@ class FluxFormComponent extends Component
                     'bool' => boolval(...),
                     'string' => strval(...),
                     'float' => floatval(...),
-                    default => fn($v) => $v,
+                    default => fn ($v) => $v,
                 };
 
-                $mutate = fn(mixed &$v, callable $callable): mixed => $v = $callable($v);
+                $mutate = fn (mixed &$v, callable $callable): mixed => $v = $callable($v);
 
                 $mutate($this->data[$property->getName()], $cast);
                 // (fn (&$v) => $v = $cast($v))($this->data[$property->getName()]);
@@ -191,9 +191,9 @@ class FluxFormComponent extends Component
         // @phpstan-ignore-next-line
         Flux::modals()->close();
 
-        if (RedirectsOnSuccess::class === data_get($this->config, 'on_success')) {
+        if (data_get($this->config, 'on_success') === RedirectsOnSuccess::class) {
             $url = App::make(RedirectsOnSuccess::class)($this->event, $success);
-            if (null !== $url) {
+            if ($url !== null) {
                 $this->redirect(url: $url, navigate: true);
             }
         }
@@ -244,7 +244,7 @@ class FluxFormComponent extends Component
         $unit = $exploded[0];
         $value = (int) ($exploded[1] ?? 0);
 
-        if ('now' === $unit && $value > 0) {
+        if ($unit === 'now' && $value > 0) {
             throw new RuntimeException('Cannot use "now" with a value greater than 0');
         }
 
