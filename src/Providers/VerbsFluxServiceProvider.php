@@ -13,6 +13,7 @@ use Livewire\Livewire;
 
 class VerbsFluxServiceProvider extends ServiceProvider
 {
+    #[\Override]
     public function register(): void
     {
         $this->loadViewsFrom(__DIR__.'/../../views', 'verbs-flux');
