@@ -18,6 +18,7 @@
 		"php": ">8.2",
         "hirethunk/verbs": "^0.6.4",
         "illuminate/support": "^11.30",
+        "laravel/pennant": "*",
         "livewire/flux": "^1.0",
         "livewire/flux-pro": "^1.0"
     },
