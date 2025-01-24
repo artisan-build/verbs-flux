@@ -56,13 +56,13 @@ class FluxFormComponent extends Component
         $this->config = array_merge($config, $default);
 
         $this->state_key = collect($reflection->getProperties())
-            ->filter(fn ($property) => ! empty($property->getAttributes(StateId::class)))
+            ->reject(fn ($property): bool => empty($property->getAttributes(StateId::class)))
             ->first()->getName();
 
         $this->rules['data.'.$this->state_key] = ['nullable'];
 
         collect($reflection->getProperties())
-            ->filter(fn ($property) => ! empty($property->getAttributes(EventInput::class)))
+            ->reject(fn ($property): bool => empty($property->getAttributes(EventInput::class)))
             ->each(function ($property) use ($state): void {
                 $default = (array) $property->getAttributes(EventInput::class)[0]->newInstance();
                 $data = $property->getAttributes(EventInput::class)[0]->getArguments();
@@ -163,7 +163,7 @@ class FluxFormComponent extends Component
 
         $reflection = new ReflectionClass($this->event);
         collect($reflection->getProperties())
-            ->filter(fn (ReflectionProperty $property): bool => ! empty($property->getAttributes(EventInput::class)))
+            ->reject(fn (ReflectionProperty $property): bool => empty($property->getAttributes(EventInput::class)))
             ->each(function (ReflectionProperty $property): void {
                 $type = $property->getType();
                 assert($type instanceof ReflectionNamedType);
