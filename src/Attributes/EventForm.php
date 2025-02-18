@@ -14,5 +14,6 @@ class EventForm
         public string $success = 'Saved!',
         public string $failure = 'Oops. Something went wrong',
         public ?string $on_success = null,
+        public ?bool $has_time_machine = false,
     ) {}
 }
