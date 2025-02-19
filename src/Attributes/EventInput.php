@@ -36,5 +36,7 @@ class EventInput
         public array $rules = [],
         public array|string $options = [],
         public ?string $options_filter = null,
+        public iterable|string $autocomplete = [],
+        public string|int|null $default = null,
     ) {}
 }
