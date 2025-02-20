@@ -19,8 +19,8 @@
         "hirethunk/verbs": "dev-main",
         "illuminate/support": "^11.30",
         "laravel/pennant": "*",
-        "livewire/flux": "^1.0",
-        "livewire/flux-pro": "^1.0"
+        "livewire/flux": "*",
+        "livewire/flux-pro": "*"
     },
 	"require-dev": {
 		"phpstan/phpstan": "^1.12"

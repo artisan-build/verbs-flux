@@ -15,7 +15,7 @@
 
     <!-- Styles -->
     @livewireStyles
-    @fluxStyles
+    @fluxAppearance
 </head>
 <body class="min-h-screen bg-white dark:bg-zinc-800">
 
