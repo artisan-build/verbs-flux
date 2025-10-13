@@ -10,10 +10,11 @@ use ArtisanBuild\VerbsFlux\Livewire\FluxFormComponent;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
+use Override;
 
 class VerbsFluxServiceProvider extends ServiceProvider
 {
-    #[\Override]
+    #[Override]
     public function register(): void
     {
         $this->loadViewsFrom(__DIR__.'/../../views', 'verbs-flux');
