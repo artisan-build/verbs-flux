@@ -17,7 +17,7 @@
 
         @if ($type === InputTypes::Textarea)
             <flux:textarea
-                rows="{{$rows}}"
+                rows="{{ $rows }}"
                 wire:model="data.{{ $name }}"
                 :attributes="new ComponentAttributeBag($attributes)"
             />

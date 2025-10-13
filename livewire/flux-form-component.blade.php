@@ -3,7 +3,7 @@
         @foreach ($fields as $field)
             <x-verbs-flux::input :field="$field"/>
         @endforeach
-        
+
         <flux:button type="submit">{{ data_get($config, 'submit_text') }}</flux:button>
     </form>
 </div>
