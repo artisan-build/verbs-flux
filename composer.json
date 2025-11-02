@@ -17,7 +17,7 @@
 	"require": {
 		"php": ">8.2",
         "hirethunk/verbs": "dev-main",
-        "illuminate/support": "^11.30",
+        "illuminate/support": "^11.30|^12.0",
         "laravel/pennant": "*",
         "livewire/flux": "*",
         "livewire/flux-pro": "*"
