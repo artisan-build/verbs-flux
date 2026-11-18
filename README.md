@@ -57,3 +57,13 @@ Tip: you can include this inside a modal like this:
     <livewire:event-form :event="\App\Events\FundsAdded::class" />
 </flux:modal>
 ```
+
+## Archived 2026-11-18
+
+This repository is archived and read-only. Abandoned: CI cannot authenticate to the private Flux repository (`composer.fluxui.dev` returns HTTP 401), and brain does not mint or place credentials unattended.
+
+Its open "Drop PHP 8.4 from CI" pull request (#6) was closed unmerged at the same time. That PR was
+not what broke CI here: `orchestra/testbench ^9.x` accepts only `laravel/framework` 11.x, and every
+11.x release is now withheld by Composer's security-advisory policy, so `composer install` fails
+before a test runs. The full diagnosis of all twenty repos in that sweep is in brain at
+`projects/brain/reports/drop-php84-prs-2026-11-10.md`.
